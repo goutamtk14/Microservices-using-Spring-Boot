@@ -32,20 +32,19 @@ public class CatalogController {
 		c.setUserid(Integer.parseInt(userid));
 		c.setUsername(u.getUsername());
 		c.setUsermobileno(u.getUsermobileno());
-		ArrayList<Rating> list=c.getRatings();
 
-		Rating r=new Rating();
+		Rating[] r=new Rating[ratings.getRatings().size()];
 		for (int i = 0; i < ratings.getRatings().size(); i++) {
+			r[i]=new Rating();
 			int mobileId = ratings.getRatings().get(i).getMobileid();
 			String mobileid = mobileId + "";
 			Mobile m = service.getMobileInfo(mobileid);
-			r.setMobilename(m.getMobilename());
-			r.setMobileprice(m.getMobileprice());
-			r.setRating(ratings.getRatings().get(i).getRating());
-            list.add(r);
+			r[i].setMobilename(m.getMobilename());
+			r[i].setMobileprice(m.getMobileprice());
+			r[i].setRating(ratings.getRatings().get(i).getRating());
+            c.getRatings().add(r[i]);
 			
 		}
-		c.setRatings(list);
 
 		return c;
 	}
